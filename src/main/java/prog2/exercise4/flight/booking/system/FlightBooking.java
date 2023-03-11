@@ -26,7 +26,7 @@ public class FlightBooking {
    private String choicefortriptype;
    private String choiceforclass;
 
-
+private  boolean dateerror;
 
     public FlightBooking(String passengerFullName, LocalDate departureDate, LocalDate returnDate,
                          int childPassengers, int adultPassengers) {
@@ -42,16 +42,30 @@ public class FlightBooking {
     }
 
     public String toString() {
-        return "Dear" + passengerFullName + ". Thank you for booking your flight with " + flightCompany +
-                ". Following are the details of your booking and the trip:\n" +
-                "Ticket Number: " + getTicketNumber() +
-                "\nFrom " + getTripSource() + "to " + getTripDestination() +
-                "\nDate of departure: " + departureDate.toString() +
-                "\nDate of return: " + returnDate.toString() +
-                "\nTotal passengers: " + totalPassengers +
-                "\nTotal ticket price in Euros: " + getTotalTicketPrice();
-    }
 
+
+        if (dateerror=false) {
+            return "Dear" + passengerFullName + ". Thank you for booking your flight with " + flightCompany +
+                    ". Following are the details of your booking and the trip:\n" +
+                    "Ticket Number: " + getTicketNumber() +
+                    "\nFrom " + getTripSource() + "to " + getTripDestination() +
+                    "\nDate of departure: " + departureDate.toString() +
+                    "\nDate of return: " + returnDate.toString() +
+                    "\nTotal passengers: " + totalPassengers +
+                    "\nTotal ticket price in Euros: " + getTotalTicketPrice();
+        }
+        else {
+            return "Dear" + passengerFullName + ". Thank you for booking your flight with " + flightCompany +
+                    ". Following are the details of your booking and the trip:\n" +
+                    "Ticket Number: " + getTicketNumber() +
+                    "\nFrom " + getTripSource() + "to " + getTripDestination() +
+                    "\nDate of departure: " + departureDate.toString() +
+                    "\nDate of return: " + returnDate.toString() +
+                    "\nTotal passengers: " + totalPassengers +
+                    "\nTotal ticket price in Euros: " + getTotalTicketPrice()+"\nIMPORTANT NOTICE: As per our policy, the return date was changed because it was less than two days apart from your departure date.\n" +
+                    "\n";
+        }
+    }
 
     enum TripType{
         ONE_WAY,RETURN
@@ -145,8 +159,6 @@ return finalnumber;
     }
 
     public String getFlightID() {
-
-        this.flightID = "fuckyourmother";
         return this.flightID;
     }
 
@@ -183,6 +195,10 @@ return finalnumber;
         long dategap=ChronoUnit.DAYS.between(departureDate,returnDate);
 if(dategap<2){
     returnDate=departureDate.plusDays(2);
+    dateerror=true;
+}
+else{
+    dateerror=false;
 }
 return  returnDate;
     }
@@ -204,15 +220,41 @@ return  returnDate;
     }
 
     public double getTotalTicketPrice() {
-        this.totalTicketPrice = 2 * adultPassengers + 1 * childPassengers;
-        int child = 2;
-        int adults = 5;
-        double fake=Math.abs((((child *((300 + (0.1*300)) + (0.05*300))) + (adults*((300 + (0.1*300)) + (0.05*300)))) + 250)*2);
-        return fake;
+        if(choicefortriptype=="1"){
+            return departingTicketPrice;
+        }
+        else {
+            return departingTicketPrice*2;
+        }
     }
 
     public void setDepartingTicketPrice(int child, int adults) {
-        this.departingTicketPrice = departingTicketPrice;
+       double c=child;
+       double a=adults;
+       double addition;
+        double rateoftax;double rateofservice;
+        if(natively==true){
+            rateofservice=0.05;
+            rateoftax=0.1;
+        }
+else {
+rateofservice=0.1;
+rateoftax=0.15;
+        }
+switch (choiceforclass){
+    case"1":addition=250;break;
+    case"2":addition=150;break;
+    case"3":addition=50;break;
+
+    default:
+        throw new IllegalStateException("Unexpected value: " + choiceforclass);
+}
+departingTicketPrice=(c+a)*300+(c+a)*300*rateofservice+(c+a)*300*rateoftax+addition;
+
+
+
+
+
     }
 
     public void setFlightID(String flightID) {
@@ -238,9 +280,7 @@ return  returnDate;
         this.returnTicketPrice = returnTicketPrice;
     }
 
-    public void setTicketNumber(String ticketNumber) {
-        this.ticketNumber = ticketNumber;
-    }
+
 
     public String getFlightCompany() {
         return this.flightCompany;
