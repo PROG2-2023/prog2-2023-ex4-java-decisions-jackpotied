@@ -1,6 +1,6 @@
 package prog2.exercise4.flight.booking.system;
 import java.time.LocalDate;
-
+import java.time.temporal.ChronoUnit;
 
 
 public class FlightBooking {
@@ -20,7 +20,11 @@ public class FlightBooking {
     private double returnTicketPrice;
     private double totalTicketPrice;
     private String ticketNumber;
-   private String choice;
+   private String choicefordepature;
+   private String choiceforreturn;
+   private boolean natively;
+   private String choicefortriptype;
+   private String choiceforclass;
 
 
 
@@ -50,41 +54,88 @@ public class FlightBooking {
 
 
     enum TripType{
-        ONE_WAY,RETURN;
+        ONE_WAY,RETURN
     }
     enum BookingClass{
-        FIRST,BUSINESS,ECONOMY;
+        FIRST,BUSINESS,ECONOMY
     }
     enum TripSource{
-        NANJING, BEIJING, Shanghai, Oulu, Helsinki, Paris;
+        NANJING, BEIJING, SHANGHAI, OULU, HELSINKI, PARIS
     }
     enum 	TripDestination{
-        NANJING, BEIJING, Shanghai, Oulu, Helsinki, Paris;
+        NANJING, BEIJING, SHANGHAI, OULU, HELSINKI, PARIS
     }
     enum 	Sourceairport{
-        Nanjing_Lukou_International_Airport, Beijing_Capital_International_Airport,Shanghai_Pudong_International_Airport,Oulu_Airport, Helsinki_Airport,Paris_Charles_de_Gaulle_Airport;
+        Nanjing_Lukou_International_Airport, Beijing_Capital_International_Airport,Shanghai_Pudong_International_Airport,Oulu_Airport, Helsinki_Airport,Paris_Charles_de_Gaulle_Airport
     }
     enum Destinationairport{
-        Nanjing_Lukou_International_Airport, Beijing_Capital_International_Airport,Shanghai_Pudong_International_Airport,Oulu_Airport, Helsinki_Airport,Paris_Charles_de_Gaulle_Airport;
+        Nanjing_Lukou_International_Airport, Beijing_Capital_International_Airport,Shanghai_Pudong_International_Airport,Oulu_Airport, Helsinki_Airport,Paris_Charles_de_Gaulle_Airport
 
     }
 public void setTripSource(String choice){
-        this.choice=choice;
+        this.choicefordepature=choice;
     }
-    public void setTripDestination(String s,String b){
-
+    public TripSource getTripSource(){
+FlightBooking.TripSource bk;
+        switch (this.choicefordepature){
+            case "1":bk= TripSource.NANJING;break;
+            case"2":bk=TripSource.BEIJING;break;
+            case"3":bk=TripSource.SHANGHAI;break;
+            case"4":bk=TripSource.OULU;break;
+            case"5":bk=TripSource.HELSINKI;break;
+            case"6":bk=TripSource.PARIS;break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + this.choicefordepature);
+        }
+return  bk;
+    }
+    public void setTripDestination(String s,String b) {
+        int source = Integer.parseInt(s);
+        int destination = Integer.parseInt(b);
+        if ((source <= 3 && destination <= 3) | (source >= 4 && destination >= 4) && (source != 6 && destination != 6)) {
+            natively = true;
+        } else {
+            natively = false;
+        }
     }
     public void setTripType(String s){
-
+this.choicefortriptype=s;
+FlightBooking.TripType tt;
+switch(choicefortriptype){
+    case "1": tt = TripType.ONE_WAY;break;
+    case"2":tt=TripType.RETURN;break;
+    default:
+        throw new IllegalStateException("Unexpected value: " + this.choicefordepature);
+}
+    }
+    public String getTicketNumber() {
+String finalnumber;
+String a,b,c;
+      if (natively==true){
+           c="DOM";
+      }else {
+c="INT";
+      }
+      if(choicefortriptype=="1"){
+          a="11";
+      }else {
+          a="22";
+      }
+if(choiceforclass=="1"){
+    b="F";
+} else if (choiceforclass=="2") {
+    b="B";
+}else {
+    b="E";
+}
+finalnumber=a+b+"PQHK"+c;
+return finalnumber;
     }
     public void setBookingClass(String b){
 
     }
 
-    public TripSource getTripSource(){
 
-        return TripSource.BEIJING;
-    }
     public int getChildrenPassengers() {
         return this.childPassengers;
     }
@@ -122,20 +173,24 @@ public void setTripSource(String choice){
         this.totalPassengers = totalPassengers;
     }
 
-    public String getTicketNumber() {
 
-        this.ticketNumber = "11FASDFDOM";
-        return ticketNumber;
-    }
 
-    public LocalDate getDepartingDate() {
+    public LocalDate getDepartureDate() {
         return this.departureDate;
     }
 
     public LocalDate getReturnDate() {
-        String fake="2023-03-06";
-        LocalDate faker=LocalDate.parse(fake);
-        return faker;
+        long dategap=ChronoUnit.DAYS.between(departureDate,returnDate);
+if(dategap<2){
+    returnDate=departureDate.plusDays(2);
+}
+return  returnDate;
+    }
+    public void setDepartureDate(LocalDate departureDate) {
+        this.departureDate = departureDate;
+    }
+    public void setReturnDate(LocalDate returnDate) {
+        this.returnDate = returnDate;
     }
 
     public double getDepartingTicketPrice() {
@@ -172,17 +227,12 @@ public void setTripSource(String choice){
         this.childPassengers = childPassengers;
     }
 
-    public void setDepartureDate(LocalDate departureDate) {
-        this.departureDate = departureDate;
-    }
 
     public void setPassengerFullName(String passengerFullName) {
         this.passengerFullName = passengerFullName;
     }
 
-    public void setReturnDate(LocalDate returnDate) {
-        this.returnDate = returnDate;
-    }
+
 
     public void setReturnTicketPrice() {
         this.returnTicketPrice = returnTicketPrice;
