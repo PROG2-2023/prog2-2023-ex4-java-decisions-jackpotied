@@ -84,8 +84,8 @@ private  boolean dateerror;
         Nanjing_Lukou_International_Airport, Beijing_Capital_International_Airport,Shanghai_Pudong_International_Airport,Oulu_Airport, Helsinki_Airport,Paris_Charles_de_Gaulle_Airport
 
     }
-public void setTripSource(String choice){
-        this.choicefordepature=choice;
+public void setTripSource(String choicee){
+        this.choicefordepature=choicee;
     }
     public TripSource getTripSource(){
 FlightBooking.TripSource bk;
