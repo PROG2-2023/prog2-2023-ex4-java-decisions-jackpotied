@@ -6,7 +6,6 @@ public class Main
 {
     public static void main( String[] args )
     {
-        FlightBooking fb = new FlightBooking(null, null, null, 0, 0);
     }
 
 }
