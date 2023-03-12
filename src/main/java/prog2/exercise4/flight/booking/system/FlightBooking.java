@@ -200,20 +200,21 @@ this.choiceforclass=b;
     }
 
     public LocalDate getReturnDate() {
-        long dategap=ChronoUnit.DAYS.between(departureDate,returnDate);
-if(dategap<2){
-    returnDate=departureDate.plusDays(2);
-    dateerror=true;
-}
-else{
-    dateerror=false;
-}
-return  returnDate;
+
+return  this.returnDate;
     }
     public void setDepartureDate(LocalDate departureDate) {
         this.departureDate = departureDate;
     }
     public void setReturnDate(LocalDate returnDate) {
+        long dategap=ChronoUnit.DAYS.between(departureDate,returnDate);
+        if(dategap<2){
+            returnDate=departureDate.plusDays(2);
+            dateerror=true;
+        }
+        else{
+            dateerror=false;
+        }
         this.returnDate = returnDate;
     }
 
