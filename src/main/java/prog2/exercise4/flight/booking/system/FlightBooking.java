@@ -42,7 +42,7 @@ private  boolean dateerror;
     }
 
     public String toString() {
-        getReturnDate();
+
         if (dateerror=false) {
             return "Dear" + passengerFullName + ". Thank you for booking your flight with " + flightCompany +
                     ". Following are the details of your booking and the trip:\n\n" +
@@ -77,11 +77,11 @@ private  boolean dateerror;
     enum 	TripDestination{
         NANJING, BEIJING, SHANGHAI, OULU, HELSINKI, PARIS
     }
-    enum 	Sourceairport{
-        Nanjing_Lukou_International_Airport, Beijing_Capital_International_Airport,Shanghai_Pudong_International_Airport,Oulu_Airport, Helsinki_Airport,Paris_Charles_de_Gaulle_Airport
+    enum 	SourceAirport{
+        NanjingLukouInternationalAirport, BeijingCapitalInternationalAirport,ShanghaiPudongInternationalAirport,OuluAirport, HelsinkiAirport,ParisCharlesdeGaulleAirport
     }
-    enum Destinationairport{
-        Nanjing_Lukou_International_Airport, Beijing_Capital_International_Airport,Shanghai_Pudong_International_Airport,Oulu_Airport, Helsinki_Airport,Paris_Charles_de_Gaulle_Airport
+    enum DestinationAirport{
+        NanjingLukouInternationalAirport, BeijingCapitalInternationalAirport,ShanghaiPudongInternationalAirport,OuluAirport, HelsinkiAirport,ParisCharlesdeGaulleAirport
 
     }
 public void setTripSource(String choicee){
@@ -89,27 +89,35 @@ public void setTripSource(String choicee){
     }
     public TripSource getTripSource(){
 FlightBooking.TripSource bk;
+FlightBooking.SourceAirport be;
         switch (this.choicefordepature){
             case "1":bk= TripSource.NANJING;break;
             case"2":bk=TripSource.BEIJING;break;
-            case"3":bk=TripSource.SHANGHAI;break;
-            case"4":bk=TripSource.OULU;break;
-            case"5":bk=TripSource.HELSINKI;break;
-            case"6":bk=TripSource.PARIS;break;
+
+            case"3":bk=TripSource.OULU;break;
+            case"4":bk=TripSource.HELSINKI;break;
+
             default:
                 throw new IllegalStateException("Unexpected value: " + this.choicefordepature);
+        }
+switch(choicefordepature){
+    case"1":be=SourceAirport.NanjingLukouInternationalAirport;break;
+    case"2":be=SourceAirport.BeijingCapitalInternationalAirport;break;
+    case"3":be=SourceAirport.OuluAirport;break;
+    case"4":be=SourceAirport.HelsinkiAirport;break;
+
         }
 return  bk;
     }
     public void setTripDestination(String s,String b) {
+        choiceforreturn=b;
         int source = Integer.parseInt(s);
         int destination = Integer.parseInt(b);
-        if ((source <= 3 && destination <= 3) | (source >= 4 && destination >= 4) && (source != 6 && destination != 6)) {
+        if ((source <= 2 && destination <= 2) | (source >= 3 && destination >= 3) ) {
             natively = true;
         } else {
             natively = false;
         }
-
     }
     public void setTripType(String s){
 this.choicefortriptype=s;
@@ -165,7 +173,15 @@ this.choiceforclass=b;
     }
 
     public String getTripDestination() {
-        return this.destinationAirport;
+        FlightBooking.TripDestination fff;
+        FlightBooking.DestinationAirport fft;
+        switch (choiceforreturn){
+            case"1":fff=TripDestination.NANJING;fft=DestinationAirport.NanjingLukouInternationalAirport;break;
+            case"2":fff=TripDestination.BEIJING;fft=DestinationAirport.BeijingCapitalInternationalAirport;break;
+            case"3":fff=TripDestination.OULU;fft=DestinationAirport.OuluAirport;break;
+            case"4":fff=TripDestination.HELSINKI;fft=DestinationAirport.HelsinkiAirport;break;
+        }
+        return this.tripDestination;
     }
 
     public String getDestinationAirport() {
