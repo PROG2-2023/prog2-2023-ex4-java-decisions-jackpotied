@@ -111,16 +111,10 @@ return  bk;
         } else {
             natively = false;
         }
+
     }
     public void setTripType(String s){
 this.choicefortriptype=s;
-FlightBooking.TripType tt;
-switch(choicefortriptype){
-    case "1": tt = TripType.ONE_WAY;break;
-    case"2":tt=TripType.RETURN;break;
-    default:
-        throw new IllegalStateException("Unexpected value: " + this.choicefordepature);
-}
     }
     public String getTicketNumber() {
 String finalnumber;
@@ -146,7 +140,7 @@ finalnumber=a+b+"PQHK"+c;
 return finalnumber;
     }
     public void setBookingClass(String b){
-
+this.choiceforclass=b;
     }
 
 
@@ -210,12 +204,12 @@ return  returnDate;
     }
 
     public double getDepartingTicketPrice() {
-        this.departingTicketPrice = adultPassengers + (0.5) * childPassengers;
+
         return this.departingTicketPrice;
     }
 
     public double getReturnTicketPrice() {
-        this.returnTicketPrice = adultPassengers + (0.5) * childPassengers;
+
         return this.returnTicketPrice;
     }
 
@@ -228,7 +222,7 @@ return  returnDate;
         }
     }
 
-    public void setDepartingTicketPrice(int child, int adults) {
+    public void setDepartingTicketPrice(double child, double adults) {
        double c=child;
        double a=adults;
        double addition;
@@ -246,16 +240,16 @@ switch (choiceforclass){
     case"2":addition=150;break;
     case"3":addition=50;break;
 
-    default:
-        throw new IllegalStateException("Unexpected value: " + choiceforclass);
-}
-departingTicketPrice=(c+a)*300+(c+a)*300*rateofservice+(c+a)*300*rateoftax+addition;
+                default: throw new IllegalStateException("Unexpected value: " + choiceforclass);
+            }
+        departingTicketPrice=(c+a)*300+(c+a)*300*rateofservice+(c+a)*300*rateoftax+addition;
+        }
 
 
 
 
 
-    }
+
 
     public void setFlightID(String flightID) {
         this.flightID = flightID;
@@ -277,7 +271,7 @@ departingTicketPrice=(c+a)*300+(c+a)*300*rateofservice+(c+a)*300*rateoftax+addit
 
 
     public void setReturnTicketPrice() {
-        this.returnTicketPrice = returnTicketPrice;
+        this.returnTicketPrice = this.departingTicketPrice;
     }
 
 
@@ -292,7 +286,7 @@ departingTicketPrice=(c+a)*300+(c+a)*300*rateofservice+(c+a)*300*rateoftax+addit
     }
 
     public void setTotalTicketPrice() {
-        this.totalTicketPrice = totalTicketPrice;
+
     }
 }
 
