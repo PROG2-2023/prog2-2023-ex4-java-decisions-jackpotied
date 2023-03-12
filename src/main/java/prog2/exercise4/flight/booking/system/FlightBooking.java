@@ -42,11 +42,10 @@ private  boolean dateerror;
     }
 
     public String toString() {
-
-
+        getReturnDate();
         if (dateerror=false) {
             return "Dear" + passengerFullName + ". Thank you for booking your flight with " + flightCompany +
-                    ". Following are the details of your booking and the trip:\n" +
+                    ". Following are the details of your booking and the trip:\n\n" +
                     "Ticket Number: " + getTicketNumber() +
                     "\nFrom " + getTripSource() + "to " + getTripDestination() +
                     "\nDate of departure: " + departureDate.toString() +
@@ -62,8 +61,7 @@ private  boolean dateerror;
                     "\nDate of departure: " + departureDate.toString() +
                     "\nDate of return: " + returnDate.toString() +
                     "\nTotal passengers: " + totalPassengers +
-                    "\nTotal ticket price in Euros: " + getTotalTicketPrice()+"\nIMPORTANT NOTICE: As per our policy, the return date was changed because it was less than two days apart from your departure date.\n" +
-                    "\n";
+                    "\nTotal ticket price in Euros: " + getTotalTicketPrice()+"\n\nIMPORTANT NOTICE: As per our policy, the return date was changed because it was less than two days apart from your departure date.";
         }
     }
 
