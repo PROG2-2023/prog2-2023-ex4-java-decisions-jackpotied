@@ -25,6 +25,7 @@ public class FlightBooking {
    private boolean natively;
    private String choicefortriptype;
    private String choiceforclass;
+
 private  boolean dateerror;
 
     public FlightBooking(String passengerFullName, LocalDate departureDate, LocalDate returnDate,
@@ -164,6 +165,115 @@ this.choiceforclass=b;
     public String getPassengerFullName() {
         return this.passengerFullName;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
