@@ -141,7 +141,9 @@ System.out.println("what a fucking assignment!why do not you check it in flesh!t
     public void setTripType(String s){
 switch (s){
     case"1":ty=TripType.ONE_WAY;
+    break;
     case"2":ty=TripType.RETURN;
+    break;
 }
     }
 
@@ -149,8 +151,11 @@ FlightBooking.BookingClass bs;
     public void setBookingClass(String b){
         switch (b){
             case"1":bs=BookingClass.FIRST;
+            break;
             case"2":bs=BookingClass.BUSINESS;
+            break;
             case"3":bs=BookingClass.ECONOMY;
+            break;
         }
     }
     public BookingClass getBookingClass(){
@@ -180,7 +185,7 @@ FlightBooking.BookingClass bs;
     }
 
     public String getTicketNumber() {
-
+        setTicketNumber();
 
 return ticketNumber;
     }
@@ -249,7 +254,7 @@ return ticketNumber;
         }
         else {
             rateofservice=0.1;
-            rateoftax=0.15;
+            rateoftax=0.05;
         }
         switch (bs){
             case FIRST:addition=250;break;
