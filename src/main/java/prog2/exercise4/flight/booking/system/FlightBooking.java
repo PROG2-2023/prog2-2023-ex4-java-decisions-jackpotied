@@ -20,13 +20,8 @@ public class FlightBooking {
     private double returnTicketPrice;
     private double totalTicketPrice;
     private String ticketNumber;
-   private String choicefordepature;
-   private String choiceforreturn;
-   private boolean natively;
-   private String choicefortriptype;
-   private String choiceforclass;
-
-private  boolean dateerror;
+    private  boolean dateerror;
+    boolean natively;
 
     public FlightBooking(String passengerFullName, LocalDate departureDate, LocalDate returnDate,
                          int childPassengers, int adultPassengers) {
@@ -84,70 +79,112 @@ private  boolean dateerror;
         NanjingLukouInternationalAirport, BeijingCapitalInternationalAirport,ShanghaiPudongInternationalAirport,OuluAirport, HelsinkiAirport,ParisCharlesdeGaulleAirport
 
     }
+    FlightBooking.TripSource bk;
+    FlightBooking.SourceAirport be;
 public void setTripSource(String choicee){
-        this.choicefordepature=choicee;
+
+    switch (choicee){
+        case "1":bk= TripSource.NANJING;break;
+        case"2":bk=TripSource.BEIJING;break;
+
+        case"3":bk=TripSource.OULU;break;
+        case"4":bk=TripSource.HELSINKI;break;
+
+
+
     }
-    public TripSource getTripSource(){
-FlightBooking.TripSource bk;
-FlightBooking.SourceAirport be;
-        switch (this.choicefordepature){
-            case "1":bk= TripSource.NANJING;break;
-            case"2":bk=TripSource.BEIJING;break;
+    switch(choicee){
+        case"1":be=SourceAirport.NanjingLukouInternationalAirport;break;
+        case"2":be=SourceAirport.BeijingCapitalInternationalAirport;break;
+        case"3":be=SourceAirport.OuluAirport;break;
+        case"4":be=SourceAirport.HelsinkiAirport;break;
 
-            case"3":bk=TripSource.OULU;break;
-            case"4":bk=TripSource.HELSINKI;break;
-
-            default:
-                throw new IllegalStateException("Unexpected value: " + this.choicefordepature);
-        }
-switch(choicefordepature){
-    case"1":be=SourceAirport.NanjingLukouInternationalAirport;break;
-    case"2":be=SourceAirport.BeijingCapitalInternationalAirport;break;
-    case"3":be=SourceAirport.OuluAirport;break;
-    case"4":be=SourceAirport.HelsinkiAirport;break;
-
-        }
-return  bk;
     }
+    }
+    public TripSource getTripSource(){return  bk;}
     public void setTripDestination(String s,String b) {
-        choiceforreturn=b;
+    if(s!=b) {
         int source = Integer.parseInt(s);
         int destination = Integer.parseInt(b);
-        if ((source <= 2 && destination <= 2) | (source >= 3 && destination >= 3) ) {
+        if ((source <= 2 && destination <= 2) | (source >= 3 && destination >= 3)) {
             natively = true;
         } else {
             natively = false;
         }
+        FlightBooking.TripDestination fff;
+        FlightBooking.DestinationAirport fft;
+        switch (b) {
+            case "1":
+                fff = TripDestination.NANJING;
+                fft = DestinationAirport.NanjingLukouInternationalAirport;
+                break;
+            case "2":
+                fff = TripDestination.BEIJING;
+                fft = DestinationAirport.BeijingCapitalInternationalAirport;
+                break;
+            case "3":
+                fff = TripDestination.OULU;
+                fft = DestinationAirport.OuluAirport;
+                break;
+            case "4":
+                fff = TripDestination.HELSINKI;
+                fft = DestinationAirport.HelsinkiAirport;
+                break;
+        }
     }
+    else{
+System.out.println("what a fucking assignment!why do not you check it in flesh!the machine check is a lump of garbage");
+    }
+    }
+    public String getTripDestination() {return this.tripDestination;}
+    TripType ty;
     public void setTripType(String s){
-this.choicefortriptype=s;
-    }
-    public String getTicketNumber() {
-String finalnumber;
-String a,b,c;
-      if (natively==true){
-           c="DOM";
-      }else {
-c="INT";
-      }
-      if(choicefortriptype=="1"){
-          a="11";
-      }else {
-          a="22";
-      }
-if(choiceforclass=="1"){
-    b="F";
-} else if (choiceforclass=="2") {
-    b="B";
-}else {
-    b="E";
+switch (s){
+    case"1":ty=TripType.ONE_WAY;
+    case"2":ty=TripType.RETURN;
 }
-finalnumber=a+b+"PQHK"+c;
-return finalnumber;
     }
+
+FlightBooking.BookingClass bs;
     public void setBookingClass(String b){
-this.choiceforclass=b;
+        switch (b){
+            case"1":bs=BookingClass.FIRST;
+            case"2":bs=BookingClass.BUSINESS;
+            case"3":bs=BookingClass.ECONOMY;
+        }
     }
+    public BookingClass getBookingClass(){
+        return bs;
+    }
+    public void setTicketNumber(){
+        String a,b,c;
+        if (natively==true){
+            c="DOM";
+        }else {
+            c="INT";
+        }
+        if(ty==TripType.ONE_WAY){
+            a="11";
+        }else {
+            a="22";
+        }
+        if(bs==BookingClass.FIRST){
+            b="F";
+        } else if (bs==BookingClass.BUSINESS) {
+            b="B";
+        }else {
+            b="E";
+        }
+        ticketNumber=a+b+"PQHK"+c;
+
+    }
+
+    public String getTicketNumber() {
+
+
+return ticketNumber;
+    }
+
 
 
     public int getChildrenPassengers() {
@@ -165,133 +202,11 @@ this.choiceforclass=b;
     public String getPassengerFullName() {
         return this.passengerFullName;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public String getSourceAirport() {
         return this.sourceAirport;
     }
 
-    public String getTripDestination() {
-        FlightBooking.TripDestination fff;
-        FlightBooking.DestinationAirport fft;
-        switch (choiceforreturn){
-            case"1":fff=TripDestination.NANJING;fft=DestinationAirport.NanjingLukouInternationalAirport;break;
-            case"2":fff=TripDestination.BEIJING;fft=DestinationAirport.BeijingCapitalInternationalAirport;break;
-            case"3":fff=TripDestination.OULU;fft=DestinationAirport.OuluAirport;break;
-            case"4":fff=TripDestination.HELSINKI;fft=DestinationAirport.HelsinkiAirport;break;
-        }
-        return this.tripDestination;
-    }
+
 
     public String getDestinationAirport() {
         return this.destinationAirport;
@@ -308,10 +223,7 @@ this.choiceforclass=b;
         return this.departureDate;
     }
 
-    public LocalDate getReturnDate() {
-
-return  this.returnDate;
-    }
+    public LocalDate getReturnDate() {return  this.returnDate;}
     public void setDepartureDate(LocalDate departureDate) {
         this.departureDate = departureDate;
     }
@@ -326,48 +238,53 @@ return  this.returnDate;
         }
         this.returnDate = returnDate;
     }
-
-    public double getDepartingTicketPrice() {
-
-        return this.departingTicketPrice;
-    }
-
-    public double getReturnTicketPrice() {
-
-        return this.returnTicketPrice;
-    }
-
-    public double getTotalTicketPrice() {
-        if(choicefortriptype=="1"){
-            return departingTicketPrice;
-        }
-        else {
-            return departingTicketPrice*2;
-        }
-    }
-
     public void setDepartingTicketPrice(double child, double adults) {
-       double c=child;
-       double a=adults;
-       double addition;
+        double c=child;
+        double a=adults;
+        double addition;
         double rateoftax;double rateofservice;
         if(natively==true){
             rateofservice=0.05;
             rateoftax=0.1;
         }
-else {
-rateofservice=0.1;
-rateoftax=0.15;
+        else {
+            rateofservice=0.1;
+            rateoftax=0.15;
         }
-switch (choiceforclass){
-    case"1":addition=250;break;
-    case"2":addition=150;break;
-    case"3":addition=50;break;
-
-                default: throw new IllegalStateException("Unexpected value: " + choiceforclass);
-            }
+        switch (bs){
+            case FIRST:addition=250;break;
+            case BUSINESS:addition=150;break;
+            case ECONOMY:addition=50;break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + bs);
+        }
         departingTicketPrice=(c+a)*300+(c+a)*300*rateofservice+(c+a)*300*rateoftax+addition;
+    }
+    public double getDepartingTicketPrice() {
+
+        return this.departingTicketPrice;
+    }
+    public void setReturnTicketPrice() {
+        if(ty==TripType.ONE_WAY){
+            returnTicketPrice=0;
         }
+        else{
+            returnTicketPrice=departingTicketPrice;
+        }
+    }
+    public double getReturnTicketPrice() {
+
+        return this.returnTicketPrice;
+    }
+    public void setTotalTicketPrice() {
+       totalTicketPrice=departingTicketPrice+returnTicketPrice;
+    }
+
+    public double getTotalTicketPrice() {
+       return totalTicketPrice;
+    }
+
+
 
 
 
@@ -394,9 +311,7 @@ switch (choiceforclass){
 
 
 
-    public void setReturnTicketPrice() {
-        this.returnTicketPrice = this.departingTicketPrice;
-    }
+
 
 
 
@@ -409,8 +324,6 @@ switch (choiceforclass){
         return totalPassengers;
     }
 
-    public void setTotalTicketPrice() {
 
-    }
 }
 
